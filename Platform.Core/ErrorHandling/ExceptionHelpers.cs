@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace DDCloud.Platform.RavenDB.FaultHandling
+namespace DDCloud.Platform.Core.ErrorHandling
 {
 	/// <summary>
 	///		Extension methods for <see cref="Exception"/>s.
