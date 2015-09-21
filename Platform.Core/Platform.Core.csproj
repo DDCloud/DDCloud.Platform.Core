@@ -1,91 +1,120 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProjectGuid>{AF699B90-C7D6-423A-981E-09DE4EBEEA0A}</ProjectGuid>
-		<OutputType>Library</OutputType>
-		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>DDCloud.Platform.Core</RootNamespace>
-		<AssemblyName>DDCloud.Platform.Core</AssemblyName>
-		<TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-		<FileAlignment>512</FileAlignment>
-		<TargetFrameworkProfile />
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<DebugType>pdbonly</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<ItemGroup>
-		<Reference Include="System" />
-		<Reference Include="System.ComponentModel.Composition" />
-		<Reference Include="System.Core" />
-		<Reference Include="System.Runtime.Serialization" />
-		<Reference Include="System.Xml.Linq" />
-		<Reference Include="System.Data.DataSetExtensions" />
-		<Reference Include="Microsoft.CSharp" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Net.Http" />
-		<Reference Include="System.Xml" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Include="Diagnostics\ActivityScope.cs" />
-		<Compile Include="Diagnostics\CorrelationSource.cs" />
-		<Compile Include="ActivityCorrelationManager.cs" />
-		<Compile Include="DisposableObject.cs" />
-		<Compile Include="Threading\LogicalCallContext.cs" />
-		<Compile Include="Collections\DictionaryHelper.cs" />
-		<Compile Include="ErrorHandling\ExceptionHelpers.cs" />
-		<Compile Include="Threading\ILogicalCallContextStorage.cs" />
-		<Compile Include="Linq\AsyncEnumerableExtensions.cs" />
-		<Compile Include="Linq\EnumerableHelper.cs" />
-		<Compile Include="Properties\AssemblyInfo.cs" />
-		<Compile Include="Threading\ReaderWriterLockSlimExtensions.cs" />
-		<Compile Include="Threading\TaskHelper.cs" />
-		<Compile Include="Threading\ThreadAffinitiveSynchronizationContext.cs" />
-		<Compile Include="Threading\TimerExtensions.cs" />
-		<Compile Include="Threading\WaitHandleExtensions.cs" />
-		<Compile Include="Utilities\AttributeHelpers.cs" />
-		<Compile Include="Utilities\ReflectionHelper.cs" />
-		<Compile Include="Utilities\DelegateDisposable.cs" />
-		<Compile Include="Utilities\DisposalHelpers.cs" />
-		<Compile Include="Utilities\EnumHelper.cs" />
-		<Compile Include="Utilities\HashCodeCombiner.cs" />
-		<Compile Include="Utilities\IndentedStringWriter.cs" />
-		<Compile Include="Utilities\NewLines.cs" />
-		<Compile Include="Utilities\PathHelper.cs" />
-		<Compile Include="Utilities\ScopedIndentOptions.cs" />
-		<Compile Include="Utilities\SerializationExtensions.cs" />
-		<Compile Include="Utilities\StringHelper.cs" />
-		<Compile Include="Utilities\UriHelper.cs" />
-	</ItemGroup>
-	<ItemGroup />
-	<Import Project="..\Common.props" />
-	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-	<!-- Staging logic -->
-	<PropertyGroup>
-		<StageDir>..\Stage\Platform.Core\</StageDir>
-	</PropertyGroup>
-	<Target Name="StageOutputs" AfterTargets="CopyFilesToOutputDirectory" DependsOnTargets="BuiltProjectOutputGroup;DebugSymbolsProjectOutputGroup;DocumentationProjectOutputGroup;ContentFilesProjectOutputGroup;ResolveReferences">
-		<!-- Stage primary output -->
-		<Copy SourceFiles="@(BuiltProjectOutputGroupOutput)" DestinationFolder="$(StageDir)lib\net451" SkipUnchangedFiles="True" />
-		<!-- Stage symbols -->
-		<Copy SourceFiles="@(DebugSymbolsProjectOutputGroupOutput)" DestinationFolder="$(StageDir)lib\net451" SkipUnchangedFiles="True" />
-		<!-- Stage IntelliDoc -->
-		<Copy SourceFiles="@(DocumentationProjectOutputGroupOutput)" DestinationFolder="$(StageDir)lib\net451" SkipUnchangedFiles="True" />
-	</Target>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AF699B90-C7D6-423A-981E-09DE4EBEEA0A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DDCloud.Platform.Core</RootNamespace>
+    <AssemblyName>DDCloud.Platform.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeAnalysis\BaseTypeRequiredAttribute.cs" />
+    <Compile Include="CodeAnalysis\CanBeNullAttribute.cs" />
+    <Compile Include="CodeAnalysis\CannotApplyEqualityOperatorAttribute.cs" />
+    <Compile Include="CodeAnalysis\ContractAnnotationAttribute.cs" />
+    <Compile Include="CodeAnalysis\ImplicitUseKindFlags.cs" />
+    <Compile Include="CodeAnalysis\ImplicitUseTargetFlags.cs" />
+    <Compile Include="CodeAnalysis\InstantHandleAttribute.cs" />
+    <Compile Include="CodeAnalysis\InvokerParameterNameAttribute.cs" />
+    <Compile Include="CodeAnalysis\LocalizationRequiredAttribute.cs" />
+    <Compile Include="CodeAnalysis\MeansImplicitUseAttribute.cs" />
+    <Compile Include="CodeAnalysis\NotifyPropertyChangedInvocatorAttribute.cs" />
+    <Compile Include="CodeAnalysis\NotNullAttribute.cs" />
+    <Compile Include="CodeAnalysis\PublicAPIAttribute.cs" />
+    <Compile Include="CodeAnalysis\PureAttribute.cs" />
+    <Compile Include="CodeAnalysis\StringFormatMethodAttribute.cs" />
+    <Compile Include="CodeAnalysis\UsedImplicitlyAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcActionAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcActionSelectorAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcAreaAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcControllerAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcDisplayTemplateAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcEditorTemplateAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcMasterAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcModelTypeAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcPartialViewAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcSupressViewErrorAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\AspMvcViewAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\PathReferenceAttribute.cs" />
+    <Compile Include="CodeAnalysis\Web\RazorSectionAttribute.cs" />
+    <Compile Include="Diagnostics\ActivityScope.cs" />
+    <Compile Include="Diagnostics\CorrelationSource.cs" />
+    <Compile Include="ActivityCorrelationManager.cs" />
+    <Compile Include="DisposableObject.cs" />
+    <Compile Include="Threading\LogicalCallContext.cs" />
+    <Compile Include="Collections\DictionaryHelper.cs" />
+    <Compile Include="ErrorHandling\ExceptionHelpers.cs" />
+    <Compile Include="Threading\ILogicalCallContextStorage.cs" />
+    <Compile Include="Linq\AsyncEnumerableExtensions.cs" />
+    <Compile Include="Linq\EnumerableHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\ReaderWriterLockSlimExtensions.cs" />
+    <Compile Include="Threading\TaskHelper.cs" />
+    <Compile Include="Threading\ThreadAffinitiveSynchronizationContext.cs" />
+    <Compile Include="Threading\TimerExtensions.cs" />
+    <Compile Include="Threading\WaitHandleExtensions.cs" />
+    <Compile Include="Utilities\AttributeHelpers.cs" />
+    <Compile Include="Utilities\ReflectionHelper.cs" />
+    <Compile Include="Utilities\DelegateDisposable.cs" />
+    <Compile Include="Utilities\DisposalHelpers.cs" />
+    <Compile Include="Utilities\EnumHelper.cs" />
+    <Compile Include="Utilities\HashCodeCombiner.cs" />
+    <Compile Include="Utilities\IndentedStringWriter.cs" />
+    <Compile Include="Utilities\NewLines.cs" />
+    <Compile Include="Utilities\PathHelper.cs" />
+    <Compile Include="Utilities\ScopedIndentOptions.cs" />
+    <Compile Include="Utilities\SerializationExtensions.cs" />
+    <Compile Include="Utilities\StringHelper.cs" />
+    <Compile Include="Utilities\UriHelper.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="..\Common.props" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- Staging logic -->
+  <PropertyGroup>
+    <StageDir>..\Stage\Platform.Core\</StageDir>
+  </PropertyGroup>
+  <Target Name="StageOutputs" AfterTargets="CopyFilesToOutputDirectory" DependsOnTargets="BuiltProjectOutputGroup;DebugSymbolsProjectOutputGroup;DocumentationProjectOutputGroup;ContentFilesProjectOutputGroup;ResolveReferences">
+    <!-- Stage primary output -->
+    <Copy SourceFiles="@(BuiltProjectOutputGroupOutput)" DestinationFolder="$(StageDir)lib\net451" SkipUnchangedFiles="True" />
+    <!-- Stage symbols -->
+    <Copy SourceFiles="@(DebugSymbolsProjectOutputGroupOutput)" DestinationFolder="$(StageDir)lib\net451" SkipUnchangedFiles="True" />
+    <!-- Stage IntelliDoc -->
+    <Copy SourceFiles="@(DocumentationProjectOutputGroupOutput)" DestinationFolder="$(StageDir)lib\net451" SkipUnchangedFiles="True" />
+  </Target>
 </Project>
