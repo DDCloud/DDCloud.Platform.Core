@@ -10,6 +10,7 @@
 		<description>Common functionality for Dimension Data's cloud services platform.</description>
 		<projectUrl>https://github.com/DDCloud/DDCloud.Platform.Core</projectUrl>
 		<iconUrl>https://ddcbu.blob.core.windows.net/images/dimension-data-logo-small.png</iconUrl>
+		<licenseUrl>https://raw.githubusercontent.com/DDCloud/DDCloud.Platform.Core/master/LICENSE</licenseUrl>
 		<summary>DD cloud services platform - common functionality.</summary>
 		<copyright>2015 (c) Dimension Data Cloud</copyright>
 		<language>en-AU</language>
@@ -19,6 +20,6 @@
 		</frameworkAssemblies>
 	</metadata>
 	<files>
-		<file src="bin\$configuration$\DDCloud.Platform.Core.pdb" target="lib\net451\" />
+		<file src="..\Stage\Platform.Core\**\*.*" target="." />
 	</files>
 </package>
